@@ -1,0 +1,41 @@
+@import './partials/animations.css';
+@import './partials/blocks.css';
+@import './partials/code.css';
+@import './partials/lists.css';
+@import './partials/placeholder.css';
+@import './partials/table.css';
+@import './partials/typography.css';
+@import './partials/image-modal.css';
+
+.ProseMirror {
+  @apply caret-black dark:caret-white outline-0 pr-2 pl-[5.75rem] py-12 z-0 mx-auto;
+
+  .selection {
+    @apply inline;
+  }
+
+  .selection,
+  *::selection {
+    @apply bg-black/10 dark:bg-white/20 inline;
+  }
+
+  &>.react-renderer {
+    @apply my-12 first:mt-0 last:mb-0;
+  }
+
+  &.resize-cursor {
+    @apply cursor-col-resize;
+  }
+
+  .ProseMirror-gapcursor {
+    @apply relative w-full min-w-full mx-auto;
+
+    &:after {
+      @apply border-t-black/40 dark:border-t-white/40 w-full min-w-full -top-[1.5em] mx-auto left-0 right-0;
+    }
+  }
+}
+
+[data-theme='slash-command'] {
+  width: 1000vw;
+}

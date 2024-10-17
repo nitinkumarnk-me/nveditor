@@ -1,6 +1,3 @@
-
-# NVEditor Documentation
-
 ## Introduction
 The NVEditor is a versatile rich text editor that enables users to create and edit content easily. This documentation covers the basic usage, props, and styling options available for the NVEditor.
 

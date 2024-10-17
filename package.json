@@ -22,7 +22,8 @@
     "./styles.css": "./dist/index.css"
   },
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "README.md"
   ],
   "repository": {
     "type": "git",

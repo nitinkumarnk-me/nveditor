@@ -6,17 +6,39 @@ export interface ImageModelProps {
     onClose: () => void;
 }
 
+async function checkIfImage(url: string) {
+    try {
+        const response = await fetch(url, { method: 'HEAD' });
+        console.log(response);
+        if (!response.ok) return false;
+        const contentType = response.headers.get('content-type');
+        return contentType && contentType.startsWith('image/');
+    } catch (error) {
+        return false;
+    }
+}
+
 export const ImageModel: FC<ImageModelProps> = ({ onInsertImage, onClose }) => {
     const [imageUrl, setImageUrl] = useState('');
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
 
-    const handleInsert = (e: FormEvent) => {
+    const handleInsert = async (e: FormEvent) => {
         e.preventDefault();
-
+        setLoading(true)
         if (imageUrl) {
-            onInsertImage(imageUrl);
+            if (await checkIfImage(imageUrl) === true) {
+                setError(false)
+                onInsertImage(imageUrl);
+                onClose();
+            } else {
+                setError(true)
+                console.log("Invalid Image URL")
+            }
         }
-        onClose();
+        setLoading(false)
     };
+
 
     return (
         <div className="image-modal">
@@ -31,7 +53,11 @@ export const ImageModel: FC<ImageModelProps> = ({ onInsertImage, onClose }) => {
                     onChange={(e) => setImageUrl(e.target.value)}
                     required
                 />
-                <button type="submit">Insert</button>
+                <button type="submit" disabled={loading}>{loading ? "Checking..." : "Insert"}</button>
+
+                {error && (
+                    <span id="invalidImage">Invalid Image URL</span>
+                )}
             </form>
         </div>
     );
